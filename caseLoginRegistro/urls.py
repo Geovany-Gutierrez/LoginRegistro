@@ -21,6 +21,6 @@ from core import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),  # Rota padrao
-    path('signUp/', views.signUp, name='signUp'),  # Rota para se registrar
-    path('signIn/', views.signIn, name='signIn'),  # Rota para entrar na conta
+    path('signup/', views.signup, name='signup'),  # Rota para se registrar
+    path('signin/', views.signIn, name='signin'),  # Rota para entrar na conta
 ]

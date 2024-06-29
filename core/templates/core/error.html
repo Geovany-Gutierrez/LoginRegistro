@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        .error-container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .error-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .error-container p {
+            text-align: center;
+            color: #c0392b;
+            font-weight: bold;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #3498db;
+        }
+        .back-link i {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <h2>Ocorreu um erro</h2>
+        <p>{{ error_message }}</p>
+        <p>Por favor, tente novamente mais tarde.</p>
+        <a href="/signup" class="back-link"><i class="fa fa-arrow-left"></i>Voltar para o cadastro</a>
+    </div>
+</body>
+</html>

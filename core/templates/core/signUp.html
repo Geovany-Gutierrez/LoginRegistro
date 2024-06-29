@@ -1,58 +1,26 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registre-se</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            padding: 20px;
-        }
-        .signin-form {
-            max-width: 400px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        .signin-form h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .signin-form input[type="email"],
-        .signin-form input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            box-sizing: border-box;
-        }
-        .signin-form button {
-            width: 100%;
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-        .signin-form button:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <title>Cadastro</title>
 </head>
 <body>
-    <div class="signin-form">
-        <h2>Registre-se</h2>
-        <form action="/signin" method="POST">
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit">Registrar</button>
-        </form>
-    </div>
+    <h2>Cadastro de Usuário</h2>
+    <form method="post" action="{% url 'signup' %}">
+        {% csrf_token %}
+        <label for="username">Nome de Usuário:</label>
+        <input type="text" id="username" name="username" required><br><br>
+    
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" required><br><br>
+    
+        <label for="password">Senha:</label>
+        <input type="password" id="password" name="password" required><br><br>
+    
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    <p>Já tem uma conta? <a href="{% url 'signin' %}">Entre aqui</a></p>
 </body>
 </html>
