@@ -1,35 +1,16 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
 </head>
 <body>
-    <div class="signin-form">
-        {% if user.is_authenticated %}
-            <h2>Bem-vindo, {{ user.username }}</h2>
-            <p><a href="{% url 'logout' %}">Sair</a></p>
-        {% else %}
-            <h2>Entre na sua conta</h2>
-            
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert alert-danger">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-            
-            <form action="{% url 'signin' %}" method="POST">
-                {% csrf_token %}
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="password" name="password" placeholder="Senha" required>
-                <button type="submit">Entrar</button>
-            </form>
-            
-            <p>Não tem uma conta? <a href="{% url 'signup' %}">Cadastre-se aqui</a></p>
-        {% endif %}
-    </div>
+    <h2>Login</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Entrar</button>
+    </form>
 </body>
 </html>

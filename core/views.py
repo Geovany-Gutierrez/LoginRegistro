@@ -1,59 +1,34 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from django.contrib import messages
-from .models import User
-import logging
-
-logger = logging.getLogger(__name__)
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 def home(request):
     return render(request, 'core/home.html')
 
-def signup(request):
+def register(request):
     if request.method == 'POST':
-        try:
-            username = request.POST['username']
-            email = request.POST['email']
-            password = request.POST['password']
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'core/signUp.html', {'form': form})
 
-            # Criar um novo usuário
-            user = User.objects.create(username=username, email=email, password=password)
-            
-            # Mensagem de sucesso e redirecionamento para o login
-            messages.success(request, "Cadastro realizado com sucesso.")
-            return redirect('signin')
-
-        except Exception as e:
-            # Se ocorrer um erro, registrar no log e mostrar página de erro
-            messages.error(request, f"Erro durante o cadastro: {e}")
-            logger.error(f"Erro durante o cadastro: {e}")
-            return render(request, 'core/error.html')
-
-    return render(request, 'core/signUp.html')
-
-def signIn(request):
+def login_view(request):
     if request.method == 'POST':
-        try:
-            email = request.POST['email']
-            password = request.POST['password']
-
-            # Autenticar o usuário
-            user = authenticate(request, email=email, password=password)
-
+        form = AuthenticationForm(request, request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
             if user is not None:
-                # Login bem-sucedido
                 login(request, user)
-                messages.success(request, "Login realizado com sucesso.")
                 return redirect('home')
-            else:
-                # Login falhou
-                messages.error(request, "Usuário ou senha inválidos.")
-                return render(request, 'core/signIn.html')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'core/signIn.html', {'form': form})
 
-        except Exception as e:
-            # Se ocorrer um erro, registrar no log e mostrar página de erro
-            messages.error(request, f"Erro durante o login: {e}")
-            logger.error(f"Erro durante o login: {e}")
-            return render(request, 'core/error.html')
-
-    return render(request, 'core/signIn.html')
+def user_logout(request):
+    logout(request)
+    return redirect('home')
