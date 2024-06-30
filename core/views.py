@@ -3,7 +3,12 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 def home(request):
-    return render(request, 'core/home.html')
+    # Se o usuário estiver autenticado, obtenha o nome de usuário
+    username = request.user.username if request.user.is_authenticated else "Seja bem-vindo"
+    
+    # Adicione o nome de usuário (ou saudação) ao contexto
+    context = {'username': username}
+    return render(request, 'core/home.html', context)
 
 def register(request):
     if request.method == 'POST':
